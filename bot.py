@@ -239,6 +239,21 @@ async def main():
     await asyncio.gather(
         dp.start_polling(bot)
     )
+    
+from flask import Flask
+import threading
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Бот работает!"
+
+def run_flask():
+    app.run(host="0.0.0.0", port=8000)
+
+# Запускаем Flask в отдельном потоке
+threading.Thread(target=run_flask, daemon=True).start()
 
 if __name__ == "__main__":
     asyncio.run(main())
