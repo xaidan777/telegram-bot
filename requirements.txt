@@ -2,3 +2,4 @@ openai
 aiogram
 requests
 python-dotenv
+flask
