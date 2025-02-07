@@ -232,26 +232,11 @@ async def respond_to_mention(message: Message):
 
 CHAT_IDS = [-1001226980734]  # Укажите реальные ID чатов
 
-async def send_console_messages():
-    """Считывает ввод пользователя из консоли и отправляет сообщения во все группы."""
-    while True:
-        message_text = await asyncio.to_thread(sys.stdin.readline)
-        message_text = message_text.strip()
-
-        if message_text:
-            for chat_id in CHAT_IDS:
-                try:
-                    await bot.send_message(chat_id, message_text)
-                    logging.info(f"Отправлено сообщение в чат {chat_id}: {message_text}")
-                except Exception as e:
-                    logging.error(f"Ошибка отправки сообщения в чат {chat_id}: {e}")
-
 async def main():
     """Запуск бота и консольного ввода одновременно."""
     await bot.delete_webhook(drop_pending_updates=True)
 
     await asyncio.gather(
-        send_console_messages(),
         dp.start_polling(bot)
     )
 
